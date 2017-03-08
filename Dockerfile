@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-FROM aquabiota/phusion-openjdk-8:16.04
+FROM aquabiota/openjdk-8-phusion-baseimage:16.04
 
 LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 
