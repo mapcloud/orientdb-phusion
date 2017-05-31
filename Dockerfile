@@ -7,9 +7,9 @@ LABEL maintainer "Aquabiota Solutions AB <mapcloud@aquabiota.se>"
 
 ARG ORIENTDB_DOWNLOAD_SERVER
 
-ENV ORIENTDB_VERSION 2.2.17
-ENV ORIENTDB_DOWNLOAD_MD5 3be5c561fbee52ca6ba12f1637f206fc
-ENV ORIENTDB_DOWNLOAD_SHA1 e43104e7dafb301a232212d2300922a086f7aedf
+ENV ORIENTDB_VERSION 2.2.20
+ENV ORIENTDB_DOWNLOAD_MD5 f3d098e8d978437e9679ec4f9d95aa19
+ENV ORIENTDB_DOWNLOAD_SHA1 040429b67b33752c0a9852ee0a2e29890733a3c1
 
 ENV ORIENTDB_DOWNLOAD_URL ${ORIENTDB_DOWNLOAD_SERVER:-http://central.maven.org/maven2/com/orientechnologies}/orientdb-community/$ORIENTDB_VERSION/orientdb-community-$ORIENTDB_VERSION.tar.gz
 RUN apt-get update \
@@ -32,9 +32,8 @@ WORKDIR /orientdb
 
 # Adding Spatial support
 
-ENV ORIENTDB_DOWNLOAD_SPATIAL_MD5 85455721c924fd76f5fe4b81ebd37e8b
-ENV ORIENTDB_DOWNLOAD_SPATIAL_SHA1 3c2ccb4c1a368e8f8ab5ef2e417422dec3d26041
-
+ENV ORIENTDB_DOWNLOAD_SPATIAL_MD5 1eeda0cb5a9c9abdcc9b49c14cdd54db
+ENV ORIENTDB_DOWNLOAD_SPATIAL_SHA1 a1b9f4c55ac554f9dcb3ce21746b7243afb8d779
 ENV ORIENTDB_DOWNLOAD_SPATIAL_URL ${ORIENTDB_DOWNLOAD_SERVER:-http://central.maven.org/maven2/com/orientechnologies}/orientdb-spatial/$ORIENTDB_VERSION/orientdb-spatial-$ORIENTDB_VERSION-dist.jar
 
 RUN wget $ORIENTDB_DOWNLOAD_SPATIAL_URL \
@@ -59,5 +58,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir /etc/service/orientdb
 ADD orientdb.sh /etc/service/orientdb/run
 
+## Optional the databases can be inside the container by adding them to the
+## directory where the Dockerfile exist
+# ADD /databases /orientdb/databases
+# ADD /config /orientdb/config
 
-HEALTHCHECK CMD curl --fail http://localhost:2480/ || exit 1
+
+# HEALTHCHECK CMD curl --fail http://localhost:2480/ || exit 1
